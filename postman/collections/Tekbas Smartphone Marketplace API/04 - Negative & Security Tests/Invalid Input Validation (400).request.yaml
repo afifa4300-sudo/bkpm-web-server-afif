@@ -1,0 +1,24 @@
+$kind: http-request
+url: "{{baseUrl}}/api/auth/register"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nama": "A",
+      "email": "bukan-email",
+      "password": "123"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 400 Bad Request', () => pm.response.to.have.status(400));
+      const errors = pm.response.json().errors;
+      pm.test('Error email dan password', () => {
+        pm.expect(errors).to.have.property('email');
+        pm.expect(errors).to.have.property('password');
+      });
+    language: text/javascript
+order: 4000

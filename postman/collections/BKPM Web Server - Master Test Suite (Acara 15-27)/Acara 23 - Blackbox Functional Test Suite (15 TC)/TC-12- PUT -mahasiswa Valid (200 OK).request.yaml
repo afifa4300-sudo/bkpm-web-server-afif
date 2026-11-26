@@ -1,0 +1,20 @@
+$kind: http-request
+name: "TC-12: PUT /mahasiswa Valid (200 OK)"
+url: "{{base_url}}/mahasiswa/E41250223"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: |-
+    {
+        "nama": "Muhammad Afif Ramdhani QA Updated",
+        "prodi": "Teknik Informatika",
+        "angkatan": 2024
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test('TC-12 Status 200 OK', function() { pm.response.to.have.status(200); });
+    language: text/javascript
+order: 12000

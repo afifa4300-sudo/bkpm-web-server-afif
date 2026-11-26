@@ -1,0 +1,10 @@
+name: BKPM Web Server - Acara 25 Local
+values:
+  - key: base_url
+    value: 'http://localhost/bkpm-web-server-afif/acara25/public'
+  - key: token
+    value: ''
+  - key: admin_token
+    value: ''
+  - key: user_token
+    value: ''

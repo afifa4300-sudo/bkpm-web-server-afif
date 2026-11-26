@@ -1,0 +1,21 @@
+$kind: http-request
+name: 5. POST /mahasiswa dengan Role Admin (201 Created)
+url: "{{base_url}}/mahasiswa"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{admin_token}}
+body:
+  type: json
+  content: |-
+    {
+        "nim": "E41250777",
+        "nama": "Admin Allowed Create",
+        "prodi": "TI",
+        "angkatan": 2024
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test('Status is 201 Created', function () { pm.response.to.have.status(201); });
+    language: text/javascript
+order: 5000

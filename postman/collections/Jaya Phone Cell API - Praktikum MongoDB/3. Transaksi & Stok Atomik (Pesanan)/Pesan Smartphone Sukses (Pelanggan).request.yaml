@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{base_url}}/api/pesan"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "sku": "SAM-A55-128",
+      "jumlah": 2
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{pelanggan_token}}"
+order: 1000

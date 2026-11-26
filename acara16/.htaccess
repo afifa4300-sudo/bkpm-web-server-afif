@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Jangan rewrite jika file atau direktori benar-benar ada
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Aturan routing /api/mahasiswa/{id} -> api/mahasiswa.php?id=$1
+RewriteRule ^api/mahasiswa/([0-9]+)/?$ api/mahasiswa.php?id=$1 [QSA,L]
+
+# Aturan routing /api/mahasiswa -> api/mahasiswa.php
+RewriteRule ^api/mahasiswa/?$ api/mahasiswa.php [QSA,L]

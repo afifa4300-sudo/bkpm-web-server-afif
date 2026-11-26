@@ -1,0 +1,5 @@
+$kind: http-request
+name: 3. GET /mahasiswa/{nim}
+url: "{{base_url}}/mahasiswa/E41250223"
+method: GET
+order: 3000

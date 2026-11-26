@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://localhost/bkpm-web-server-afif/acara17/public/endpoint-tidak-ada
+method: GET
+order: 7000

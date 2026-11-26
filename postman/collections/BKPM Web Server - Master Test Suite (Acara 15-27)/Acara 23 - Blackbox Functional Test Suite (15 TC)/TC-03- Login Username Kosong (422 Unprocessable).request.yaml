@@ -1,0 +1,18 @@
+$kind: http-request
+name: "TC-03: Login Username Kosong (422 Unprocessable)"
+url: "{{base_url}}/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "username": "",
+        "password": "admin123"
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test('TC-03 Status 422 Unprocessable', function() { pm.response.to.have.status(422); });
+    language: text/javascript
+order: 3000

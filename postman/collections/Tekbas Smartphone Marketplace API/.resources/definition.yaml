@@ -1,0 +1,12 @@
+$kind: collection
+description: |-
+  Collection pengujian backend marketplace smartphone (Flask + MongoDB + JWT).
+
+  Urutan yang disarankan: jalankan folder 01 sampai 05 menggunakan Collection Runner.
+
+  Sebelum menjalankan:
+  1. Isi environment `Tekbas Marketplace - Local` (baseUrl, adminEmail, adminPassword).
+  2. Jalankan `python seed.py` untuk membuat akun admin.
+  3. Customer didaftarkan otomatis oleh request Register Customer dengan email unik.
+
+  Token dan ID produk/pesanan disimpan otomatis ke environment oleh test script.

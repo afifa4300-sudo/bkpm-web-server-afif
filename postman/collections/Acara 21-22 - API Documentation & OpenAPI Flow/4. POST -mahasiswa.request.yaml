@@ -1,0 +1,11 @@
+$kind: http-request
+name: 4. POST /mahasiswa
+url: "{{base_url}}/mahasiswa"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: '{"nim":"E41250210","nama":"Doc Tested","prodi":"TI","angkatan":2024}'
+order: 4000

@@ -1,0 +1,2254 @@
+{
+    "info": {
+        "_postman_id": "230f0c49-5365-4c03-bdfa-fb10fa812c24",
+        "name": "BKPM Web Server - Master Test Suite (Acara 15-27)",
+        "description": "Koleksi Pengujian Terpadu Seluruh Modul Praktikum Web Server Acara 15 s.d Acara 27 oleh Muhammad Afif Ramdhani (E41250223)",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Acara 15 - REST API Dasar (URL Penuh)",
+            "item": [
+                {
+                    "name": "1. GET Semua Mahasiswa",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara15/api/mahasiswa.php",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara15",
+                                "api",
+                                "mahasiswa.php"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "2. GET Mahasiswa Berdasarkan ID (Query ?id=1)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara15/api/mahasiswa.php?id=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara15",
+                                "api",
+                                "mahasiswa.php"
+                            ],
+                            "query": [
+                                {
+                                    "key": "id",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "3. POST Tambah Mahasiswa Baru",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara15/api/mahasiswa.php",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara15",
+                                "api",
+                                "mahasiswa.php"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41250223\",\n    \"nama\": \"Muhammad Afif Ramdhani\",\n    \"prodi\": \"Teknik Informatika\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code 201 Created', function () { pm.response.to.have.status(201); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "4. POST Validasi Gagal (Field Wajib Kosong)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara15/api/mahasiswa.php",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara15",
+                                "api",
+                                "mahasiswa.php"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama\": \"Tanpa NIM\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code 400 Bad Request', function () { pm.response.to.have.status(400); });"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Acara 16 - RESTful API Full CRUD (URL Penuh)",
+            "item": [
+                {
+                    "name": "1. GET List Mahasiswa",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara16/api/mahasiswa.php",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara16",
+                                "api",
+                                "mahasiswa.php"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "2. GET Single Mahasiswa by ID (?id=1)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara16/api/mahasiswa.php?id=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara16",
+                                "api",
+                                "mahasiswa.php"
+                            ],
+                            "query": [
+                                {
+                                    "key": "id",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "3. POST Tambah Mahasiswa Baru",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara16/api/mahasiswa.php",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara16",
+                                "api",
+                                "mahasiswa.php"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41250999\",\n    \"nama\": \"Mahasiswa Uji Acara 16\",\n    \"prodi\": \"Teknik Informatika\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code 201 Created', function () { pm.response.to.have.status(201); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "4. PUT Update Mahasiswa (?id=1)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara16/api/mahasiswa.php?id=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara16",
+                                "api",
+                                "mahasiswa.php"
+                            ],
+                            "query": [
+                                {
+                                    "key": "id",
+                                    "value": "1"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama\": \"Mahasiswa Uji Acara 16 (Updated)\",\n    \"prodi\": \"Teknik Komputer\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "5. DELETE Hapus Mahasiswa (?id=1)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara16/api/mahasiswa.php?id=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara16",
+                                "api",
+                                "mahasiswa.php"
+                            ],
+                            "query": [
+                                {
+                                    "key": "id",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Acara 17 - Arsitektur MVC & Custom Router (URL Penuh)",
+            "item": [
+                {
+                    "name": "1. GET All Mahasiswa (MVC Route)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara17",
+                                "public",
+                                "mahasiswa"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "2. GET Mahasiswa by NIM",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa/E41250223",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara17",
+                                "public",
+                                "mahasiswa",
+                                "E41250223"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "3. POST Create Mahasiswa (MVC)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara17",
+                                "public",
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41250171\",\n    \"nama\": \"Budi MVC\",\n    \"prodi\": \"Teknik Informatika\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "4. PUT Update Mahasiswa (MVC)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa/E41250171",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara17",
+                                "public",
+                                "mahasiswa",
+                                "E41250171"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama\": \"Budi MVC Updated\",\n    \"prodi\": \"Manajemen Informatika\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "5. DELETE Mahasiswa (MVC)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa/E41250171",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara17",
+                                "public",
+                                "mahasiswa",
+                                "E41250171"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "6. GET All Buku (Resource Kedua)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara17/public/buku",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara17",
+                                "public",
+                                "buku"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "7. GET 404 Route Not Found",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara17/public/endpoint-tidak-ada",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara17",
+                                "public",
+                                "endpoint-tidak-ada"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Acara 18 - Response Envelope & Error Handling (URL Penuh)",
+            "item": [
+                {
+                    "name": "1. GET Mahasiswa - Format Response Envelope",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara18/public/mahasiswa",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara18",
+                                "public",
+                                "mahasiswa"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Envelope keys exist', function () {",
+                                    "    var res = pm.response.json();",
+                                    "    pm.expect(res).to.have.property('success');",
+                                    "    pm.expect(res).to.have.property('message');",
+                                    "    pm.expect(res).to.have.property('data');",
+                                    "    pm.expect(res).to.have.property('timestamp');",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "2. POST Sukses 201 Created",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara18/public/mahasiswa",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara18",
+                                "public",
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41250888\",\n    \"nama\": \"Envelope User\",\n    \"prodi\": \"Teknik Informatika\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status is 201 Created', function () { pm.response.to.have.status(201); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "3. POST Validasi Gagal 422 (NIM bukan 9 digit)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara18/public/mahasiswa",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara18",
+                                "public",
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"123\",\n    \"nama\": \"NIM Pendek\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status is 422 Unprocessable Entity', function () { pm.response.to.have.status(422); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "4. GET 404 Not Found Data Mahasiswa",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/bkpm-web-server-afif/acara18/public/mahasiswa/E99999999",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "bkpm-web-server-afif",
+                                "acara18",
+                                "public",
+                                "mahasiswa",
+                                "E99999999"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status is 404 Not Found', function () { pm.response.to.have.status(404); });"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Acara 19 - Testing Postman & Register Auth (Mulai Pakai {{base_url}})",
+            "item": [
+                {
+                    "name": "1. POST /register (Sukses 201 Created)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "register"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"afif_tester\",\n    \"email\": \"afif_tester@example.com\",\n    \"password\": \"secret123\",\n    \"role\": \"admin\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Register success 201', function () { pm.response.to.have.status(201); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "2. POST /register Duplikat (Gagal 409 Conflict)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "register"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"afif_tester\",\n    \"email\": \"afif_tester@example.com\",\n    \"password\": \"secret123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status is 409 Conflict', function () { pm.response.to.have.status(409); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "3. POST /register Validasi Email Gagal (422 Unprocessable)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "register"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"budi_salah\",\n    \"email\": \"bukan-email-valid\",\n    \"password\": \"123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status is 422 Unprocessable Entity', function () { pm.response.to.have.status(422); });"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Acara 20 - Native JWT Authentication",
+            "item": [
+                {
+                    "name": "1. POST /login (Generate JWT Token)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Login Success 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "    var res = pm.response.json();",
+                                    "    pm.expect(res.data).to.have.property('token');",
+                                    "    pm.environment.set('token', res.data.token);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "2. GET /mahasiswa (Public Endpoint Tanpa Token)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Public endpoint 200 OK', function () { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "3. POST /mahasiswa Tanpa Token (401 Unauthorized)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41250911\",\n    \"nama\": \"No Token\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status is 401 Unauthorized', function () { pm.response.to.have.status(401); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "4. POST /mahasiswa Dengan Bearer Token Valid",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41250911\",\n    \"nama\": \"With Valid Token\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status is 201 Created', function () { pm.response.to.have.status(201); });"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Acara 21 & 22 - API Docs & OpenAPI Specification",
+            "item": [
+                {
+                    "name": "1. POST /login",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"username\":\"admin\",\"password\":\"admin123\"}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "2. GET /mahasiswa",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "3. GET /mahasiswa/{nim}",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa/E41250223",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa",
+                                "E41250223"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "4. POST /mahasiswa",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"nim\":\"E41250210\",\"nama\":\"Doc Tested\",\"prodi\":\"TI\",\"angkatan\":2024}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Acara 23 - Blackbox Functional Test Suite (15 TC)",
+            "item": [
+                {
+                    "name": "TC-01: Login Kredensial Valid (200 OK)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-01 Status 200 OK', function() { pm.response.to.have.status(200); var res = pm.response.json(); pm.environment.set('token', res.data.token); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-02: Login Password Salah (401 Unauthorized)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"pass_salah\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-02 Status 401 Unauthorized', function() { pm.response.to.have.status(401); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-03: Login Username Kosong (422 Unprocessable)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"\",\n    \"password\": \"admin123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-03 Status 422 Unprocessable', function() { pm.response.to.have.status(422); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-04: Register Pengguna Baru (201 Created)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "register"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"qa_user_1795267208\",\n    \"email\": \"qa1795267208@polije.ac.id\",\n    \"password\": \"password123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-04 Status 201 Created', function() { pm.response.to.have.status(201); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-05: Register Email Invalid (422 Unprocessable)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "register"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"invalid_email_user\",\n    \"email\": \"format-email-salah\",\n    \"password\": \"password123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-05 Status 422 Unprocessable', function() { pm.response.to.have.status(422); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-06: GET /mahasiswa Public (200 OK)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-06 Status 200 OK', function() { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-07: GET /mahasiswa by NIM Valid (200 OK)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa/E41250223",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa",
+                                "E41250223"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-07 Status 200 OK', function() { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-08: GET /mahasiswa by NIM Tidak Ada (404 Not Found)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa/E00000000",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa",
+                                "E00000000"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-08 Status 404 Not Found', function() { pm.response.to.have.status(404); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-09: POST /mahasiswa Valid dengan Bearer Token (201 Created)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41237210\",\n    \"nama\": \"Mahasiswa QA Valid\",\n    \"prodi\": \"Teknik Informatika\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-09 Status 201 Created', function() { pm.response.to.have.status(201); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-10: POST /mahasiswa Tanpa Token (401 Unauthorized)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41250999\",\n    \"nama\": \"No Token\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-10 Status 401 Unauthorized', function() { pm.response.to.have.status(401); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-11: POST /mahasiswa NIM Bukan 9 Karakter (422 Unprocessable)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E412\",\n    \"nama\": \"NIM Pendek\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-11 Status 422 Unprocessable', function() { pm.response.to.have.status(422); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-12: PUT /mahasiswa Valid (200 OK)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa/E41250223",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa",
+                                "E41250223"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama\": \"Muhammad Afif Ramdhani QA Updated\",\n    \"prodi\": \"Teknik Informatika\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-12 Status 200 OK', function() { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-13: PUT /mahasiswa NIM Tidak Ada (404 Not Found)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa/E00000000",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa",
+                                "E00000000"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama\": \"Ghost\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-13 Status 404 Not Found', function() { pm.response.to.have.status(404); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-14: DELETE /mahasiswa dengan Token (200 OK)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa/E41250911",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa",
+                                "E41250911"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-14 Status 200/404 Handled', function() { pm.expect([200, 404]).to.include(pm.response.code); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TC-15: DELETE /mahasiswa Tanpa Token (401 Unauthorized)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa/E41250223",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa",
+                                "E41250223"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('TC-15 Status 401 Unauthorized', function() { pm.response.to.have.status(401); });"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Acara 24 & 25 - Fetch API & Role-Based Access Control (RBAC)",
+            "item": [
+                {
+                    "name": "1. Login sebagai Admin (Role: admin)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Login Admin Success 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "    var res = pm.response.json();",
+                                    "    pm.environment.set('admin_token', res.data.token);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "2. Login sebagai Pengguna Biasa (Role: user)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"user\",\n    \"password\": \"user123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Login User Success 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "    var res = pm.response.json();",
+                                    "    pm.environment.set('user_token', res.data.token);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "3. GET /mahasiswa (Role User / Publik)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{user_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status 200 OK', function() { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "4. POST /mahasiswa dengan Role User (403 Forbidden)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{user_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41250777\",\n    \"nama\": \"User Trying to Create\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status is 403 Forbidden', function () { pm.response.to.have.status(403); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "5. POST /mahasiswa dengan Role Admin (201 Created)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nim\": \"E41250777\",\n    \"nama\": \"Admin Allowed Create\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status is 201 Created', function () { pm.response.to.have.status(201); });"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Acara 26 & 27 - Photo Upload & Full SPA CRUD",
+            "item": [
+                {
+                    "name": "1. Login Admin Mendapatkan Token",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Login Admin Success 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "    var res = pm.response.json();",
+                                    "    pm.environment.set('token', res.data.token);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "2. POST /mahasiswa + Upload Foto (Multipart Form-Data)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "nim",
+                                    "value": "E41250666",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "nama",
+                                    "value": "Mahasiswa Foto Test",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "prodi",
+                                    "value": "Teknik Informatika",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "angkatan",
+                                    "value": "2024",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "foto",
+                                    "type": "file",
+                                    "src": ""
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status 201 Created', function() { pm.response.to.have.status(201); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "3. POST Update + Ganti Foto (Method Override PUT via Form-Data)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "X-HTTP-Method-Override",
+                                "value": "PUT",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa/E41250666",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa",
+                                "E41250666"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "nama",
+                                    "value": "Mahasiswa Foto Test (Ganti Foto)",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "prodi",
+                                    "value": "Teknik Komputer",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "angkatan",
+                                    "value": "2024",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "foto",
+                                    "type": "file",
+                                    "src": ""
+                                }
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status 200 OK', function() { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "4. DELETE /mahasiswa & Hapus File Foto Fisik",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/mahasiswa/E41250666",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mahasiswa",
+                                "E41250666"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status 200 OK', function() { pm.response.to.have.status(200); });"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

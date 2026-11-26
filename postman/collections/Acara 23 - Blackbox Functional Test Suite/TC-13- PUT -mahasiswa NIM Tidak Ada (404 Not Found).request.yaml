@@ -1,0 +1,20 @@
+$kind: http-request
+name: "TC-13: PUT /mahasiswa NIM Tidak Ada (404 Not Found)"
+url: "{{base_url}}/mahasiswa/E00000000"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: |-
+    {
+        "nama": "Ghost",
+        "prodi": "TI",
+        "angkatan": 2024
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test('TC-13 Status 404 Not Found', function() { pm.response.to.have.status(404); });
+    language: text/javascript
+order: 13000

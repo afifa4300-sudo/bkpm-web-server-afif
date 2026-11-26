@@ -1,0 +1,10 @@
+$kind: http-request
+url: http://localhost/bkpm-web-server-afif/acara16/api/mahasiswa.php
+method: GET
+headers:
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });
+    language: text/javascript
+order: 1000

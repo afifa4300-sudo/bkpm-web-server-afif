@@ -1,0 +1,190 @@
+{
+    "info": {
+        "_postman_id": "0c0dbf5d-201d-425c-9eb9-ab35e170b644",
+        "name": "Acara 17 - MVC REST API & Router (Hardcoded URL)",
+        "description": "Pengujian MVC REST API Acara 17 menggunakan Full URL langsung",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. GET All Mahasiswa (MVC Route)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara17",
+                        "public",
+                        "mahasiswa"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "2. GET Mahasiswa by NIM",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa/E41250223",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara17",
+                        "public",
+                        "mahasiswa",
+                        "E41250223"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "3. POST Create Mahasiswa (MVC)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara17",
+                        "public",
+                        "mahasiswa"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"nim\": \"E41250171\",\n    \"nama\": \"Budi MVC\",\n    \"prodi\": \"Teknik Informatika\",\n    \"angkatan\": 2024\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "4. PUT Update Mahasiswa (MVC)",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa/E41250171",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara17",
+                        "public",
+                        "mahasiswa",
+                        "E41250171"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"nama\": \"Budi MVC Updated\",\n    \"prodi\": \"Manajemen Informatika\",\n    \"angkatan\": 2024\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "5. DELETE Mahasiswa (MVC)",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa/E41250171",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara17",
+                        "public",
+                        "mahasiswa",
+                        "E41250171"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "6. GET All Buku (Resource Kedua)",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara17/public/buku",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara17",
+                        "public",
+                        "buku"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "7. GET 404 Route Not Found",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara17/public/endpoint-tidak-ada",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara17",
+                        "public",
+                        "endpoint-tidak-ada"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}

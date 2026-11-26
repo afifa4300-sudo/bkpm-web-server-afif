@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa/E41250171
+method: DELETE
+order: 5000

@@ -1,0 +1,2 @@
+$kind: collection
+description: Pengujian Registrasi dengan Postman Environment {{base_url}}

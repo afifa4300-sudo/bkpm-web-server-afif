@@ -1,0 +1,203 @@
+openapi: 3.0.0
+info:
+  title: API Sistem Informasi Akademik (MVC)
+  description: Dokumentasi RESTful API SI Akademik Politeknik Negeri Jember berbasis PHP Native MVC, Response Envelope, dan JWT Authentication.
+  version: 1.0.0
+servers:
+  - url: http://localhost/bkpm-web-server-afif/acara22/public
+    description: Server Lokal Praktikum
+
+paths:
+  /register:
+    post:
+      summary: Pendaftaran pengguna baru (AuthController::register)
+      tags:
+        - Autentikasi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - email
+                - password
+              properties:
+                username:
+                  type: string
+                  example: afif_admin
+                email:
+                  type: string
+                  format: email
+                  example: afif@polije.ac.id
+                password:
+                  type: string
+                  format: password
+                  example: Rahasia123!
+                role:
+                  type: string
+                  enum: [admin, user]
+                  default: user
+      responses:
+        '201':
+          description: Registrasi berhasil
+        '400':
+          description: Input field tidak lengkap
+        '422':
+          description: Format email salah atau username/email sudah terdaftar
+
+  /login:
+    post:
+      summary: Autentikasi pengguna dan penerbitan token (AuthController::login)
+      tags:
+        - Autentikasi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  example: afif_admin
+                password:
+                  type: string
+                  example: Rahasia123!
+      responses:
+        '200':
+          description: Login berhasil, mengembalikan token JWT
+        '401':
+          description: Kredensial tidak valid (username / password salah)
+
+  /mahasiswa:
+    get:
+      summary: Mengambil data mahasiswa (MahasiswaController::index)
+      tags:
+        - Mahasiswa
+      parameters:
+        - name: id
+          in: query
+          required: false
+          description: ID Mahasiswa spesifik (opsional)
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Data berhasil diambil
+        '404':
+          description: Data mahasiswa dengan ID tersebut tidak ditemukan
+
+    post:
+      summary: Menambahkan data mahasiswa baru (MahasiswaController::store)
+      tags:
+        - Mahasiswa
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nim
+                - nama
+                - prodi
+              properties:
+                nim:
+                  type: string
+                  example: "220100129"
+                  description: Nomor Induk Mahasiswa (9 digit)
+                nama:
+                  type: string
+                  example: "Farhan Kurniawan"
+                prodi:
+                  type: string
+                  example: "Teknik Informatika"
+      responses:
+        '201':
+          description: Data berhasil ditambahkan
+        '401':
+          description: Tidak menyertakan token atau token kadaluarsa
+        '422':
+          description: Format NIM bukan 9 digit angka atau NIM sudah terdaftar
+
+    put:
+      summary: Memperbarui data mahasiswa (MahasiswaController::update)
+      tags:
+        - Mahasiswa
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: ID Mahasiswa yang akan diperbarui
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nim
+                - nama
+                - prodi
+              properties:
+                nim:
+                  type: string
+                  example: "220100129"
+                nama:
+                  type: string
+                  example: "Farhan Kurniawan, S.Tr.Kom"
+                prodi:
+                  type: string
+                  example: "Teknik Informatika"
+      responses:
+        '200':
+          description: Data berhasil diperbarui
+        '401':
+          description: Tidak terautentikasi
+        '404':
+          description: Data mahasiswa tidak ditemukan
+        '422':
+          description: Format NIM salah atau duplikat
+
+    delete:
+      summary: Menghapus data mahasiswa (MahasiswaController::destroy)
+      tags:
+        - Mahasiswa
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: ID Mahasiswa yang akan dihapus
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Data berhasil dihapus
+        '401':
+          description: Tidak terautentikasi
+        '404':
+          description: Data tidak ditemukan
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Masukkan token JWT yang diperoleh dari endpoint /login

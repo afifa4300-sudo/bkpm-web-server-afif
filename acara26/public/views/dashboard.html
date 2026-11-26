@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Akademik - CRUD Penuh Mahasiswa (Acara 27)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .foto-thumb {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .foto-default {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #dee2e6;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <script>
+        if (!localStorage.getItem('token')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">SI Akademik (CRUD Penuh Asinkronus)</a>
+            <div class="d-flex align-items-center text-white">
+                <span class="me-3">Halo, <strong id="user-display"></strong> (<span id="role-display" class="badge bg-light text-primary"></span>)</span>
+                <button class="btn btn-sm btn-outline-light" onclick="prosesLogout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <!-- Notifikasi Visual Operasi (Tugas Praktik Mandiri 1) -->
+        <div id="alert-notification" class="alert alert-dismissible fade show" style="display: none;" role="alert">
+            <span id="alert-message"></span>
+            <button type="button" class="btn-close" onclick="tutupNotifikasi()"></button>
+        </div>
+
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-0 fw-bold text-primary">Manajemen Data Mahasiswa</h5>
+                    <small class="text-muted">Total data tersimpan: <span id="total-count" class="fw-bold">0</span></small>
+                </div>
+                <!-- Tombol Tambah Data -->
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambah" id="btn-tambah-modal">
+                    + Tambah Mahasiswa
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle" id="tabel-mahasiswa">
+                        <thead class="table-dark">
+                            <tr>
+                                <th style="width: 50px;">#</th>
+                                <th style="width: 70px;">Foto</th>
+                                <th>NIM</th>
+                                <th>Nama Lengkap</th>
+                                <th>Program Studi</th>
+                                <th style="width: 170px;" class="admin-column text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TAMBAH MAHASISWA -->
+    <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold">Tambah Data Mahasiswa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="form-tambah">
+                    <div class="modal-body">
+                        <!-- Tugas Mandiri 2: Validasi Sisi View (Required & Pattern) -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">NIM (9 Digit Numerik)</label>
+                            <input type="text" name="nim" class="form-control" placeholder="Contoh: 220100129" required maxlength="9" pattern="[0-9]{9}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nama Lengkap</label>
+                            <input type="text" name="nama" class="form-control" placeholder="Masukkan nama mahasiswa" required minlength="3">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Program Studi</label>
+                            <select name="prodi" class="form-select" required>
+                                <option value="">-- Pilih Program Studi --</option>
+                                <option value="Teknik Informatika">Teknik Informatika</option>
+                                <option value="Sistem Informasi">Sistem Informasi</option>
+                                <option value="Teknik Komputer">Teknik Komputer</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Foto Profil (JPG/PNG, Maks. 2MB)</label>
+                            <input type="file" name="foto" class="form-control" accept="image/png, image/jpeg">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary" id="btn-submit-tambah">Simpan Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDIT MAHASISWA -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title fw-bold">Edit Data Mahasiswa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="form-edit">
+                    <input type="hidden" name="id" id="edit-id">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">NIM (9 Digit Numerik)</label>
+                            <input type="text" name="nim" id="edit-nim" class="form-control" required maxlength="9" pattern="[0-9]{9}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nama Lengkap</label>
+                            <input type="text" name="nama" id="edit-nama" class="form-control" required minlength="3">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Program Studi</label>
+                            <select name="prodi" id="edit-prodi" class="form-select" required>
+                                <option value="Teknik Informatika">Teknik Informatika</option>
+                                <option value="Sistem Informasi">Sistem Informasi</option>
+                                <option value="Teknik Komputer">Teknik Komputer</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Ganti Foto Profil (Opsional)</label>
+                            <input type="file" name="foto" id="edit-foto" class="form-control" accept="image/png, image/jpeg">
+                            <small class="text-muted">Biarkan kosong jika tidak ingin mengubah foto profil.</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-warning" id="btn-submit-edit">Perbarui Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const BASE_URL = window.location.origin + window.location.pathname.replace(/\/views\/.*$/, '');
+        const UPLOADS_URL = BASE_URL + '/uploads';
+
+        const role = localStorage.getItem('role') || 'user';
+        const username = localStorage.getItem('username') || 'Pengguna';
+        const token = localStorage.getItem('token') || '';
+
+        document.getElementById('user-display').innerText = username;
+        document.getElementById('role-display').innerText = role.toUpperCase();
+
+        if (role !== 'admin') {
+            document.getElementById('btn-tambah-modal').style.display = 'none';
+        }
+
+        // Tampilkan Notifikasi Visual (Tugas Mandiri 1)
+        function tampilkanNotifikasi(pesan, sukses = true) {
+            const box = document.getElementById('alert-notification');
+            const msg = document.getElementById('alert-message');
+            box.className = `alert alert-${sukses ? 'success' : 'danger'} alert-dismissible fade show`;
+            msg.innerText = pesan;
+            box.style.display = 'block';
+            setTimeout(() => { box.style.display = 'none'; }, 5000);
+        }
+
+        function tutupNotifikasi() {
+            document.getElementById('alert-notification').style.display = 'none';
+        }
+
+        // Muat Data Mahasiswa ke Tabel
+        async function muatDataMahasiswa() {
+            try {
+                const res = await fetch(`${BASE_URL}/mahasiswa`);
+                const hasil = await res.json();
+                const tbody = document.querySelector('#tabel-mahasiswa tbody');
+                tbody.innerHTML = '';
+
+                document.getElementById('total-count').innerText = hasil.data ? hasil.data.length : 0;
+
+                if (!hasil.data || hasil.data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">Belum ada data mahasiswa</td></tr>';
+                    return;
+                }
+
+                hasil.data.forEach((mhs, idx) => {
+                    const fotoHtml = mhs.foto 
+                        ? `<img src="${UPLOADS_URL}/${mhs.foto}" class="foto-thumb shadow-sm" alt="foto">`
+                        : `<span class="foto-default">N/A</span>`;
+
+                    const actionHtml = role === 'admin' 
+                        ? `<button class="btn btn-sm btn-outline-warning me-1" onclick="bukaModalEdit(${mhs.id})">Edit</button>
+                           <button class="btn btn-sm btn-outline-danger" onclick="hapusData(${mhs.id})">Hapus</button>`
+                        : '<span class="text-muted small">Read-Only</span>';
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${idx + 1}</td>
+                            <td class="text-center">${fotoHtml}</td>
+                            <td><strong>${mhs.nim}</strong></td>
+                            <td>${mhs.nama}</td>
+                            <td><span class="badge bg-secondary">${mhs.prodi}</span></td>
+                            <td class="text-center">${actionHtml}</td>
+                        </tr>
+                    `;
+                });
+            } catch (err) {
+                console.error(err);
+                tampilkanNotifikasi('Gagal memuat data dari server', false);
+            }
+        }
+
+        // Tambah Data Mahasiswa Baru (FormData)
+        document.querySelector('#form-tambah').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-tambah');
+            btn.disabled = true;
+            btn.innerText = 'Menyimpan...';
+
+            const formData = new FormData(e.target);
+
+            try {
+                const res = await fetch(`${BASE_URL}/mahasiswa`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+                const hasil = await res.json();
+
+                if (hasil.success) {
+                    tampilkanNotifikasi('Data mahasiswa berhasil ditambahkan!', true);
+                    e.target.reset();
+                    bootstrap.Modal.getInstance(document.getElementById('modalTambah')).hide();
+                    muatDataMahasiswa();
+                } else {
+                    tampilkanNotifikasi(hasil.message || 'Gagal menyimpan data', false);
+                }
+            } catch (err) {
+                tampilkanNotifikasi('Kesalahan jaringan saat menyimpan data', false);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Simpan Data';
+            }
+        });
+
+        // Buka Modal Edit & Isi Data
+        async function bukaModalEdit(id) {
+            try {
+                const res = await fetch(`${BASE_URL}/mahasiswa?id=${id}`);
+                const hasil = await res.json();
+                if (hasil.success && hasil.data) {
+                    document.getElementById('edit-id').value = hasil.data.id;
+                    document.getElementById('edit-nim').value = hasil.data.nim;
+                    document.getElementById('edit-nama').value = hasil.data.nama;
+                    document.getElementById('edit-prodi').value = hasil.data.prodi;
+                    new bootstrap.Modal(document.getElementById('modalEdit')).show();
+                } else {
+                    tampilkanNotifikasi('Data tidak ditemukan', false);
+                }
+            } catch (err) {
+                tampilkanNotifikasi('Gagal mengambil data untuk diedit', false);
+            }
+        }
+
+        // Simpan Perubahan Edit (FormData dengan _method=PUT)
+        document.querySelector('#form-edit').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('edit-id').value;
+            const btn = document.getElementById('btn-submit-edit');
+            btn.disabled = true;
+            btn.innerText = 'Memperbarui...';
+
+            const formData = new FormData(e.target);
+            formData.append('_method', 'PUT');
+
+            try {
+                const res = await fetch(`${BASE_URL}/mahasiswa?id=${id}`, {
+                    method: 'POST', // Menggunakan override method agar multipart file terbaca sempurna di PHP
+                    headers: { 
+                        'Authorization': `Bearer ${token}`,
+                        'X-HTTP-Method-Override': 'PUT'
+                    },
+                    body: formData
+                });
+                const hasil = await res.json();
+
+                if (hasil.success) {
+                    tampilkanNotifikasi('Data mahasiswa berhasil diperbarui!', true);
+                    bootstrap.Modal.getInstance(document.getElementById('modalEdit')).hide();
+                    muatDataMahasiswa();
+                } else {
+                    tampilkanNotifikasi(hasil.message || 'Gagal memperbarui data', false);
+                }
+            } catch (err) {
+                tampilkanNotifikasi('Kesalahan jaringan saat memperbarui data', false);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Perbarui Data';
+            }
+        });
+
+        // Hapus Data Mahasiswa
+        async function hapusData(id) {
+            if (!confirm(`Apakah Anda yakin ingin menghapus mahasiswa dengan ID ${id}?`)) return;
+
+            try {
+                const res = await fetch(`${BASE_URL}/mahasiswa?id=${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const hasil = await res.json();
+
+                if (hasil.success) {
+                    tampilkanNotifikasi('Data mahasiswa berhasil dihapus!', true);
+                    muatDataMahasiswa();
+                } else {
+                    tampilkanNotifikasi(hasil.message || 'Gagal menghapus data', false);
+                }
+            } catch (err) {
+                tampilkanNotifikasi('Kesalahan jaringan saat menghapus data', false);
+            }
+        }
+
+        function prosesLogout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', muatDataMahasiswa);
+    </script>
+</body>
+</html>

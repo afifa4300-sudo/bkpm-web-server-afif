@@ -1,0 +1,13 @@
+$kind: http-request
+name: 2. GET Single Mahasiswa by ID (?id=1)
+url: http://localhost/bkpm-web-server-afif/acara16/api/mahasiswa.php?id=1
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  id: "1"
+scripts:
+  - type: afterResponse
+    code: pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });
+    language: text/javascript
+order: 2000

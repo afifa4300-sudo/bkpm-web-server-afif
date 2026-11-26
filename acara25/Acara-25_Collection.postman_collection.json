@@ -1,0 +1,234 @@
+{
+    "info": {
+        "_postman_id": "e51899ac-69af-4589-8b60-f1e48e94e819",
+        "name": "Acara 25 - RBAC Role-Based Access Control",
+        "description": "Pengujian Hak Akses Multi-User (Admin vs User), Token JWT Role, dan 403 Forbidden",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. Login sebagai Admin (Role: admin)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/login",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "login"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Login Admin Success 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "    var res = pm.response.json();",
+                            "    pm.environment.set('admin_token', res.data.token);",
+                            "});"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "2. Login sebagai Pengguna Biasa (Role: user)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/login",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "login"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"user\",\n    \"password\": \"user123\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Login User Success 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "    var res = pm.response.json();",
+                            "    pm.environment.set('user_token', res.data.token);",
+                            "});"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "3. GET /mahasiswa (Role User / Publik)",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{user_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/mahasiswa",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "mahasiswa"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status 200 OK', function() { pm.response.to.have.status(200); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "4. POST /mahasiswa dengan Role User (403 Forbidden)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{user_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/mahasiswa",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "mahasiswa"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"nim\": \"E41250777\",\n    \"nama\": \"User Trying to Create\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status is 403 Forbidden', function () { pm.response.to.have.status(403); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "5. POST /mahasiswa dengan Role Admin (201 Created)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{admin_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/mahasiswa",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "mahasiswa"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"nim\": \"E41250777\",\n    \"nama\": \"Admin Allowed Create\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status is 201 Created', function () { pm.response.to.have.status(201); });"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

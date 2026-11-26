@@ -1,0 +1,30 @@
+$kind: http-request
+url: "{{baseUrl}}/api/auth/register"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nama": "Customer Postman",
+      "email": "{{customerEmail}}",
+      "password": "{{customerPassword}}"
+    }
+scripts:
+  - type: beforeRequest
+    code: |-
+      pm.environment.set('customerEmail', `customer${Date.now()}@example.com`);
+      pm.environment.set('customerPassword', 'Customer123!');
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test('Status 201 Created', () => pm.response.to.have.status(201));
+      const body = pm.response.json();
+      pm.test('Role customer dan password tidak bocor', () => {
+        pm.expect(body.success).to.eql(true);
+        pm.expect(body.data.user.role).to.eql('customer');
+        pm.expect(body.data.user).to.not.have.property('password_hash');
+      });
+    language: text/javascript
+order: 1000

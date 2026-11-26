@@ -1,0 +1,19 @@
+$kind: http-request
+name: "TC-04: Register Pengguna Baru (201 Created)"
+url: "{{base_url}}/register"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "username": "qa_user_1795267208",
+        "email": "qa1795267208@polije.ac.id",
+        "password": "password123"
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test('TC-04 Status 201 Created', function() { pm.response.to.have.status(201); });
+    language: text/javascript
+order: 4000

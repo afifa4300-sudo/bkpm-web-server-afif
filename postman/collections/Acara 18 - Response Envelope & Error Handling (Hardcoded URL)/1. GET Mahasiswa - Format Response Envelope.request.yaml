@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost/bkpm-web-server-afif/acara18/public/mahasiswa
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Envelope keys exist', function () {
+          var res = pm.response.json();
+          pm.expect(res).to.have.property('success');
+          pm.expect(res).to.have.property('message');
+          pm.expect(res).to.have.property('data');
+          pm.expect(res).to.have.property('timestamp');
+      });
+    language: text/javascript
+order: 1000

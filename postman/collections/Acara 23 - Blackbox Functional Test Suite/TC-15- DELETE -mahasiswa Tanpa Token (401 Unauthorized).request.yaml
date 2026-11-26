@@ -1,0 +1,9 @@
+$kind: http-request
+name: "TC-15: DELETE /mahasiswa Tanpa Token (401 Unauthorized)"
+url: "{{base_url}}/mahasiswa/E41250223"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: pm.test('TC-15 Status 401 Unauthorized', function() { pm.response.to.have.status(401); });
+    language: text/javascript
+order: 15000

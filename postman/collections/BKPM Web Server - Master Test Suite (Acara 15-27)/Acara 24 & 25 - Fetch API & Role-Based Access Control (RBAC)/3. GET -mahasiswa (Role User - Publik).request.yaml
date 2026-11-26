@@ -1,0 +1,11 @@
+$kind: http-request
+name: 3. GET /mahasiswa (Role User / Publik)
+url: "{{base_url}}/mahasiswa"
+method: GET
+headers:
+  Authorization: Bearer {{user_token}}
+scripts:
+  - type: afterResponse
+    code: pm.test('Status 200 OK', function() { pm.response.to.have.status(200); });
+    language: text/javascript
+order: 3000

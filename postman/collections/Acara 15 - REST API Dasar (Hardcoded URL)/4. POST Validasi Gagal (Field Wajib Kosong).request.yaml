@@ -1,0 +1,16 @@
+$kind: http-request
+url: http://localhost/bkpm-web-server-afif/acara15/api/mahasiswa.php
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "nama": "Tanpa NIM"
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test('Status code 400 Bad Request', function () { pm.response.to.have.status(400); });
+    language: text/javascript
+order: 4000

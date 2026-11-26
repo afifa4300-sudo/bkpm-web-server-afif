@@ -1,0 +1,139 @@
+{
+    "info": {
+        "_postman_id": "4eb70eab-e677-436b-a396-26528c7debfa",
+        "name": "Acara 19 - Postman Environment & Register Auth",
+        "description": "Pengujian Registrasi dengan Postman Environment {{base_url}}",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. POST /register (Sukses 201 Created)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/register",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "register"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"afif_tester\",\n    \"email\": \"afif_tester@example.com\",\n    \"password\": \"secret123\",\n    \"role\": \"admin\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Register success 201', function () { pm.response.to.have.status(201); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "2. POST /register Duplikat (Gagal 409 Conflict)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/register",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "register"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"afif_tester\",\n    \"email\": \"afif_tester@example.com\",\n    \"password\": \"secret123\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status is 409 Conflict', function () { pm.response.to.have.status(409); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "3. POST /register Validasi Email Gagal (422 Unprocessable)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/register",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "register"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"budi_salah\",\n    \"email\": \"bukan-email-valid\",\n    \"password\": \"123\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status is 422 Unprocessable Entity', function () { pm.response.to.have.status(422); });"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

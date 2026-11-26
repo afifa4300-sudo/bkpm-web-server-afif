@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/api/orders"
+method: POST
+headers:
+  Authorization: Bearer {{customerToken}}
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "items": [
+        { "product_id": "{{productId}}", "jumlah": 1000 }
+      ]
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 409 Conflict', () => pm.response.to.have.status(409));
+      pm.test('Pesan stok tidak mencukupi', () => pm.expect(pm.response.json().message.toLowerCase()).to.include('tidak mencukupi'));
+    language: text/javascript
+order: 1000

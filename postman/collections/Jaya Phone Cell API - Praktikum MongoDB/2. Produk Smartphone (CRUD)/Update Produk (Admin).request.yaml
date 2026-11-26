@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{base_url}}/api/produk/{{produk_id}}"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "harga_idr": 5450000,
+      "stok": 15
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{admin_token}}"
+order: 5000

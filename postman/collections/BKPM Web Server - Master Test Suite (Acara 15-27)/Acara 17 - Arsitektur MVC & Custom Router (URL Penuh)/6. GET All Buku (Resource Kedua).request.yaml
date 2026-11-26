@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://localhost/bkpm-web-server-afif/acara17/public/buku
+method: GET
+order: 6000

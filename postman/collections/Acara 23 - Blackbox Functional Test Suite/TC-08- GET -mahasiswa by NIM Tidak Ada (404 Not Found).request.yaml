@@ -1,0 +1,11 @@
+$kind: http-request
+name: "TC-08: GET /mahasiswa by NIM Tidak Ada (404 Not Found)"
+url: "{{base_url}}/mahasiswa?id=10"
+method: GET
+queryParams:
+  id: "10"
+scripts:
+  - type: afterResponse
+    code: pm.test('TC-08 Status 404 Not Found', function() { pm.response.to.have.status(404); });
+    language: text/javascript
+order: 8000

@@ -1,0 +1,20 @@
+$kind: http-request
+name: "TC-10: POST /mahasiswa Tanpa Token (401 Unauthorized)"
+url: "{{base_url}}/mahasiswa"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "nim": "E41250999",
+        "nama": "No Token",
+        "prodi": "TI",
+        "angkatan": 2024
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test('TC-10 Status 401 Unauthorized', function() { pm.response.to.have.status(401); });
+    language: text/javascript
+order: 10000

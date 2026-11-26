@@ -1,0 +1,35 @@
+$kind: http-request
+url: "{{baseUrl}}/api/products"
+method: POST
+headers:
+  Authorization: Bearer {{adminToken}}
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nama": "Samsung Galaxy S24 Ultra {{$timestamp}}",
+      "brand": "Samsung",
+      "harga": 20000000,
+      "stok": 10,
+      "deskripsi": "Smartphone flagship Samsung dengan S-Pen.",
+      "spesifikasi": {
+        "ram": "12GB",
+        "storage": "512GB",
+        "layar": "6.8 inch",
+        "kamera": "200MP"
+      }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 201 Created', () => pm.response.to.have.status(201));
+      const product = pm.response.json().data.product;
+      pm.environment.set('productId', product._id);
+      pm.environment.set('productStock', product.stok);
+      pm.test('Data produk tersimpan', () => {
+        pm.expect(product.nama).to.include('Samsung');
+        pm.expect(product.harga).to.eql(20000000);
+      });
+    language: text/javascript
+order: 1000

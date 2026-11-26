@@ -1,0 +1,175 @@
+{
+    "info": {
+        "_postman_id": "cb7ab437-a720-4332-bd76-f358c95e228e",
+        "name": "Acara 18 - Response Envelope & Error Handling (Hardcoded URL)",
+        "description": "Standarisasi Format JSON Envelope menggunakan Full URL langsung",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. GET Mahasiswa - Format Response Envelope",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara18/public/mahasiswa",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara18",
+                        "public",
+                        "mahasiswa"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Envelope keys exist', function () {",
+                            "    var res = pm.response.json();",
+                            "    pm.expect(res).to.have.property('success');",
+                            "    pm.expect(res).to.have.property('message');",
+                            "    pm.expect(res).to.have.property('data');",
+                            "    pm.expect(res).to.have.property('timestamp');",
+                            "});"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "2. POST Sukses 201 Created",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara18/public/mahasiswa",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara18",
+                        "public",
+                        "mahasiswa"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"nim\": \"E41250888\",\n    \"nama\": \"Envelope User\",\n    \"prodi\": \"Teknik Informatika\",\n    \"angkatan\": 2024\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status is 201 Created', function () { pm.response.to.have.status(201); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "3. POST Validasi Gagal 422 (NIM bukan 9 digit)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara18/public/mahasiswa",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara18",
+                        "public",
+                        "mahasiswa"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"nim\": \"123\",\n    \"nama\": \"NIM Pendek\",\n    \"prodi\": \"TI\",\n    \"angkatan\": 2024\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status is 422 Unprocessable Entity', function () { pm.response.to.have.status(422); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "4. GET 404 Not Found Data Mahasiswa",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara18/public/mahasiswa/E99999999",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara18",
+                        "public",
+                        "mahasiswa",
+                        "E99999999"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status is 404 Not Found', function () { pm.response.to.have.status(404); });"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

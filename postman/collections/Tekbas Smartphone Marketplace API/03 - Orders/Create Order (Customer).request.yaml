@@ -1,0 +1,28 @@
+$kind: http-request
+url: "{{baseUrl}}/api/orders"
+method: POST
+headers:
+  Authorization: Bearer {{customerToken}}
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "items": [
+        { "product_id": "{{productId}}", "jumlah": 2 }
+      ]
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 201 Created', () => pm.response.to.have.status(201));
+      const order = pm.response.json().data.order;
+      pm.environment.set('orderId', order._id);
+      pm.test('Total harga dihitung server', () => {
+        pm.expect(order.total_harga).to.be.above(0);
+        pm.expect(order.total_harga).to.eql(order.items[0].harga * order.items[0].jumlah);
+        pm.expect(order.status).to.eql('pending');
+        pm.expect(order.items[0].jumlah).to.eql(2);
+      });
+    language: text/javascript
+order: 1000

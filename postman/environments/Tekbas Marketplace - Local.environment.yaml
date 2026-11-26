@@ -1,0 +1,24 @@
+name: Tekbas Marketplace - Local
+values:
+  - key: baseUrl
+    value: 'http://localhost:5000'
+  - key: adminEmail
+    value: admin@tekbas.local
+  - key: adminPassword
+    value: ''
+  - key: customerEmail
+    value: ''
+  - key: customerPassword
+    value: Customer123!
+  - key: adminToken
+    value: ''
+  - key: customerToken
+    value: ''
+  - key: productId
+    value: ''
+  - key: productStock
+    value: ''
+  - key: tempProductId
+    value: ''
+  - key: orderId
+    value: ''

@@ -1,0 +1,26 @@
+$kind: http-request
+url: "{{base_url}}/api/produk"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "sku": "VIVO-V30-256",
+      "merek": "Vivo",
+      "model": "V30",
+      "os": "Android",
+      "ram_gb": 12,
+      "rom_gb": 256,
+      "warna": "Peacock Green",
+      "harga_idr": 5999000,
+      "stok": 8,
+      "garansi_bulan": 12,
+      "aktif": true
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{admin_token}}"
+order: 2000

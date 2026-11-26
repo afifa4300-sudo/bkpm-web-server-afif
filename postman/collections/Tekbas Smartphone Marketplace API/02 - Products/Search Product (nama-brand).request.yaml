@@ -1,0 +1,15 @@
+$kind: http-request
+name: Search Product (nama/brand)
+url: "{{baseUrl}}/api/products?search=samsung&page=1&per_page=10"
+method: GET
+queryParams:
+  search: samsung
+  page: "1"
+  per_page: "10"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 200', () => pm.response.to.have.status(200));
+      pm.test('Hasil pencarian ditemukan', () => pm.expect(pm.response.json().meta.total).to.be.above(0));
+    language: text/javascript
+order: 3000

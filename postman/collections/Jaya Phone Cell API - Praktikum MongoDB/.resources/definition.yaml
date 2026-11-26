@@ -1,0 +1,2 @@
+$kind: collection
+description: Koleksi Postman lengkap untuk pengujian REST API Marketplace Jaya Phone Cell dengan autentikasi JWT, CRUD Produk, dan Pengelolaan Stok Atomik.

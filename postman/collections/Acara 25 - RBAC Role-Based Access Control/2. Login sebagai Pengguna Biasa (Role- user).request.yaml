@@ -1,0 +1,23 @@
+$kind: http-request
+name: "2. Login sebagai Pengguna Biasa (Role: user)"
+url: "{{base_url}}/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "username": "user",
+        "password": "user123"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Login User Success 200', function () {
+          pm.response.to.have.status(200);
+          var res = pm.response.json();
+          pm.environment.set('user_token', res.data.token);
+      });
+    language: text/javascript
+order: 2000

@@ -1,0 +1,114 @@
+{
+    "info": {
+        "_postman_id": "a1c250d8-b937-4dc3-8e72-bf7661298e2f",
+        "name": "Acara 21-22 - API Documentation & OpenAPI Flow",
+        "description": "Pengujian Skenario Lengkap Sesuai Spesifikasi OpenAPI 3.0",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. POST /login",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/login",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "login"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"username\":\"admin\",\"password\":\"admin123\"}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "2. GET /mahasiswa",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/mahasiswa",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "mahasiswa"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "3. GET /mahasiswa/{nim}",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/mahasiswa/E41250223",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "mahasiswa",
+                        "E41250223"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "4. POST /mahasiswa",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/mahasiswa",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "mahasiswa"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"nim\":\"E41250210\",\"nama\":\"Doc Tested\",\"prodi\":\"TI\",\"angkatan\":2024}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": []
+        }
+    ]
+}

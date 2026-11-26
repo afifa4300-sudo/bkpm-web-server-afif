@@ -1,0 +1,23 @@
+$kind: http-request
+name: "1. Login sebagai Admin (Role: admin)"
+url: "{{base_url}}/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "username": "admin",
+        "password": "admin123"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Login Admin Success 200', function () {
+          pm.response.to.have.status(200);
+          var res = pm.response.json();
+          pm.environment.set('admin_token', res.data.token);
+      });
+    language: text/javascript
+order: 1000

@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa/E41250223
+method: GET
+order: 2000

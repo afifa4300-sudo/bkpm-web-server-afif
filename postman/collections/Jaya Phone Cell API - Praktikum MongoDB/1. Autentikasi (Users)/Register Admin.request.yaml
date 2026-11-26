@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{base_url}}/api/auth/register"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "nama": "Admin Jaya",
+      "email": "admin@jayaphone.com",
+      "password": "admin123",
+      "role": "admin"
+    }
+order: 1000

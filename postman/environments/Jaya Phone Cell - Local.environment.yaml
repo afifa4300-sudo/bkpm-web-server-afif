@@ -1,0 +1,10 @@
+name: Jaya Phone Cell - Local
+values:
+  - key: base_url
+    value: 'http://127.0.0.1:5000'
+  - key: admin_token
+    value: ''
+  - key: pelanggan_token
+    value: ''
+  - key: produk_id
+    value: ''

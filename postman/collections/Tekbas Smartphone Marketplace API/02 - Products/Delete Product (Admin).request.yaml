@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/products/{{tempProductId}}"
+method: DELETE
+headers:
+  Authorization: Bearer {{adminToken}}
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 200', () => pm.response.to.have.status(200));
+      pm.test('Produk terhapus', () => pm.expect(pm.response.json().success).to.eql(true));
+    language: text/javascript
+order: 7000

@@ -1,0 +1,221 @@
+{
+    "info": {
+        "_postman_id": "eb341354-b482-48e3-98dd-24d412f52a77",
+        "name": "Acara 26-27 - File Upload Foto & SPA CRUD API",
+        "description": "Pengujian Upload Berkas Citra (Multipart), Validasi Binary, Method Override PUT, dan Unlink Foto",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. Login Admin Mendapatkan Token",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/login",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "login"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Login Admin Success 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "    var res = pm.response.json();",
+                            "    pm.environment.set('token', res.data.token);",
+                            "});"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "2. POST /mahasiswa + Upload Foto (Multipart Form-Data)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/mahasiswa",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "mahasiswa"
+                    ]
+                },
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "nim",
+                            "value": "E41250666",
+                            "type": "text"
+                        },
+                        {
+                            "key": "nama",
+                            "value": "Mahasiswa Foto Test",
+                            "type": "text"
+                        },
+                        {
+                            "key": "prodi",
+                            "value": "Teknik Informatika",
+                            "type": "text"
+                        },
+                        {
+                            "key": "angkatan",
+                            "value": "2024",
+                            "type": "text"
+                        },
+                        {
+                            "key": "foto",
+                            "type": "file",
+                            "src": ""
+                        }
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status 201 Created', function() { pm.response.to.have.status(201); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "3. POST Update + Ganti Foto (Method Override PUT via Form-Data)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{token}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "X-HTTP-Method-Override",
+                        "value": "PUT",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/mahasiswa/E41250666",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "mahasiswa",
+                        "E41250666"
+                    ]
+                },
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "nama",
+                            "value": "Mahasiswa Foto Test (Ganti Foto)",
+                            "type": "text"
+                        },
+                        {
+                            "key": "prodi",
+                            "value": "Teknik Komputer",
+                            "type": "text"
+                        },
+                        {
+                            "key": "angkatan",
+                            "value": "2024",
+                            "type": "text"
+                        },
+                        {
+                            "key": "foto",
+                            "type": "file",
+                            "src": ""
+                        }
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status 200 OK', function() { pm.response.to.have.status(200); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "4. DELETE /mahasiswa & Hapus File Foto Fisik",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/mahasiswa/E41250666",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "mahasiswa",
+                        "E41250666"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status 200 OK', function() { pm.response.to.have.status(200); });"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

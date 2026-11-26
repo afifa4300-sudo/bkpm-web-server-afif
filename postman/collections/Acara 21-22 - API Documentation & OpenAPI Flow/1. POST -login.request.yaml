@@ -1,0 +1,10 @@
+$kind: http-request
+name: 1. POST /login
+url: "{{base_url}}/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"username":"admin","password":"admin123"}'
+order: 1000

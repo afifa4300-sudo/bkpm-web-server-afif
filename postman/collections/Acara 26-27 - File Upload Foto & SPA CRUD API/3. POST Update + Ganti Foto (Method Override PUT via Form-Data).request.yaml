@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa/E41250666"
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+  X-HTTP-Method-Override: PUT
+body:
+  type: formdata
+  content:
+    - type: text
+      key: nama
+      value: Mahasiswa Foto Test (Ganti Foto)
+    - type: text
+      key: prodi
+      value: Teknik Komputer
+    - type: text
+      key: angkatan
+      value: "2024"
+    - type: file
+      key: foto
+      src:
+        - ""
+scripts:
+  - type: afterResponse
+    code: pm.test('Status 200 OK', function() { pm.response.to.have.status(200); });
+    language: text/javascript
+order: 3000

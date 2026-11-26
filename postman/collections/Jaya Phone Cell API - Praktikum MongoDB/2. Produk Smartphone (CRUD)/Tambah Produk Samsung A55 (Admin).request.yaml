@@ -1,0 +1,35 @@
+$kind: http-request
+url: "{{base_url}}/api/produk"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "sku": "SAM-A55-128",
+      "merek": "Samsung",
+      "model": "Galaxy A55 5G",
+      "os": "Android",
+      "ram_gb": 8,
+      "rom_gb": 128,
+      "warna": "Awesome Navy",
+      "harga_idr": 5500000,
+      "stok": 10,
+      "garansi_bulan": 12,
+      "aktif": true
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{admin_token}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      var jsonData = pm.response.json();
+      if (jsonData.id) {
+          pm.environment.set("produk_id", jsonData.id);
+          console.log("produk_id tersimpan: " + jsonData.id);
+      }
+    language: text/javascript
+order: 1000

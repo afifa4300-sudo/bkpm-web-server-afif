@@ -1,0 +1,17 @@
+$kind: http-request
+url: http://localhost/bkpm-web-server-afif/acara17/public/mahasiswa?id=1​
+method: PUT
+headers:
+  Content-Type: application/json
+queryParams:
+  id: 1​
+body:
+  type: json
+  content: |-
+    {
+        "nim": "E41250172",
+        "nama": "Budi MVC Updated",
+        "prodi": "Manajemen Informatika",
+        "angkatan": 2024
+    }
+order: 4000

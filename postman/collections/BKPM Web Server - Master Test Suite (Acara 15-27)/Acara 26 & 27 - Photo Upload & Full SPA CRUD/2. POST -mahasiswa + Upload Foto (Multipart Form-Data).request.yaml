@@ -1,0 +1,30 @@
+$kind: http-request
+name: 2. POST /mahasiswa + Upload Foto (Multipart Form-Data)
+url: "{{base_url}}/mahasiswa"
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: formdata
+  content:
+    - type: text
+      key: nim
+      value: E41250666
+    - type: text
+      key: nama
+      value: Mahasiswa Foto Test
+    - type: text
+      key: prodi
+      value: Teknik Informatika
+    - type: text
+      key: angkatan
+      value: "2024"
+    - type: file
+      key: foto
+      src:
+        - ""
+scripts:
+  - type: afterResponse
+    code: pm.test('Status 201 Created', function() { pm.response.to.have.status(201); });
+    language: text/javascript
+order: 2000

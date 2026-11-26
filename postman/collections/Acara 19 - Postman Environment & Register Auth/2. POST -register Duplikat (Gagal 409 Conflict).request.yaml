@@ -1,0 +1,19 @@
+$kind: http-request
+name: 2. POST /register Duplikat (Gagal 409 Conflict)
+url: "{{base_url}}/register"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "username": "afif_tester",
+        "email": "afif_tester@example.com",
+        "password": "secret123"
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test('Status is 409 Conflict', function () { pm.response.to.have.status(409); });
+    language: text/javascript
+order: 2000

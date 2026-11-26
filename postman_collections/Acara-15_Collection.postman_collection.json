@@ -1,0 +1,186 @@
+{
+    "info": {
+        "_postman_id": "47a83469-b23e-4653-8c5b-1486674ec90a",
+        "name": "Acara 15 - REST API Dasar (Hardcoded URL)",
+        "description": "Pengujian Endpoint API Acara 15 menggunakan Full URL langsung sesuai BKPM",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. GET Semua Mahasiswa",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara15/api/mahasiswa.php",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara15",
+                        "api",
+                        "mahasiswa.php"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "2. GET Mahasiswa Berdasarkan ID (Query ?id=1)",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara15/api/mahasiswa.php?id=1",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara15",
+                        "api",
+                        "mahasiswa.php"
+                    ],
+                    "query": [
+                        {
+                            "key": "id",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status code 200 OK', function () { pm.response.to.have.status(200); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "3. POST Tambah Mahasiswa Baru",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara15/api/mahasiswa.php",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara15",
+                        "api",
+                        "mahasiswa.php"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"nim\": \"E41250223\",\n    \"nama\": \"Muhammad Afif Ramdhani\",\n    \"prodi\": \"Teknik Informatika\",\n    \"angkatan\": 2024\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status code 201 Created', function () { pm.response.to.have.status(201); });"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "4. POST Validasi Gagal (Field Wajib Kosong)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost/bkpm-web-server-afif/acara15/api/mahasiswa.php",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "path": [
+                        "bkpm-web-server-afif",
+                        "acara15",
+                        "api",
+                        "mahasiswa.php"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"nama\": \"Tanpa NIM\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('Status code 400 Bad Request', function () { pm.response.to.have.status(400); });"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+$kind: http-request
+name: "TC-14: DELETE /mahasiswa dengan Token (200 OK)"
+url: "{{base_url}}/mahasiswa?id=4"
+method: DELETE
+headers:
+  Authorization: Bearer {{token}}
+queryParams:
+  id: "4"
+scripts:
+  - type: afterResponse
+    code: pm.test('TC-14 Status 200/404 Handled', function() { pm.expect([200, 404]).to.include(pm.response.code); });
+    language: text/javascript
+order: 14000

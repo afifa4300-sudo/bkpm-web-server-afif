@@ -1,0 +1,30 @@
+# Use this workspace to collaborate
+workspace:
+  id: 4eccb932-3a85-4851-ad34-1bfcf485783a
+
+localResources:
+  specs:
+    - ../acara22/docs/openapi.yaml
+    - ../acara23/docs/openapi.yaml
+    - ../acara24/docs/openapi.yaml
+    - ../acara25/docs/openapi.yaml
+    - ../acara26/docs/openapi.yaml
+    - ../acara27/docs/openapi.yaml
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/Acara 16 - RESTful API CRUD (Hardcoded URL): 92d52f68-6fec-46bf-9084-196c61f89498
+    ../postman/collections/Acara 15 - REST API Dasar (Hardcoded URL): 8cefd068-57d7-4129-b7d0-68a5126e0513
+    ../postman/collections/Acara 17 - MVC REST API & Router (Hardcoded URL): ddbae1a0-5640-4b54-a31c-7c32162eeb8f
+    ../postman/collections/Acara 20 - JWT Token Authentication: e199cb73-1cfd-491e-8415-f0b7f2805d51
+    ../postman/collections/Acara 18 - Response Envelope & Error Handling (Hardcoded URL): e4f829cb-8eb7-4abd-8557-509f7c9fd44d
+    ../postman/collections/Acara 19 - Postman Environment & Register Auth: a5d0e1b9-7b7c-41e4-95e7-f07ccd5c161b
+    ../postman/collections/Acara 21-22 - API Documentation & OpenAPI Flow: 08a94d68-dfa8-47f1-bcd4-5ef2081e371c
+    ../postman/collections/Acara 25 - RBAC Role-Based Access Control: 63eebca0-ca2e-4cdd-9ab4-d084ed63ecca
+    ../postman/collections/Acara 26-27 - File Upload Foto & SPA CRUD API: f10a7099-706c-4b69-9b95-a50d09e02487
+    ../postman/collections/Acara 23 - Blackbox Functional Test Suite: c82c1d32-88c5-4241-b189-48cdf2897d4e
+    ../postman/collections/BKPM Web Server - Master Test Suite (Acara 15-27): abf53b70-c7d3-4bf9-b267-423f61a5458f
+    ../postman/collections/Tekbas Smartphone Marketplace API: f81e2d1b-7f98-4616-8f22-4968fd48875e
+    ../postman/collections/Jaya Phone Cell API - Praktikum MongoDB: 2ca367b1-d14e-42b4-bff3-74533a15fa7b

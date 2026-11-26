@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://localhost/bkpm-web-server-afif/acara17/public/buku
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "judul": "Belajar PHP MVC",
+      "penulis": "Raditya",
+      "penerbit": "Polije Press",
+      "tahun": 2026
+    }
+order: 8000
