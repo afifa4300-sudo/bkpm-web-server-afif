@@ -1,0 +1,28 @@
+# Git Ignore untuk Project Sistem Informasi Akademik
+# Sesuai Standar BKPM Acara 11 & 12
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Environment & Sensitive Credentials
+.env
+.env.backup
+.env.production
+config/credentials.php
+
+# Storage, Uploads & Logs
+/storage/logs/*
+/storage/cache/*
+*.log
+
+# System & OS Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
